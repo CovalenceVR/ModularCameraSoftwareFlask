@@ -9,3 +9,6 @@ def stop():
             
 def delete(fileName):
     os.remove("projects/" + fileName)
+
+def update():
+    os.system("pkill python3; git pull; python3 app.py")

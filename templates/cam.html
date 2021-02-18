@@ -30,6 +30,9 @@
 		<li>
 			<a href="{{ 'http://' + ip + '/cam/preview' }}">Preview</a>
 		</li>
+		<li>
+			<a href="{{ 'http://' + ip + '/update' }}">Update</a>
+		</li>
 	</ul>
 </div>
 
@@ -71,7 +74,8 @@
 	</li>
 	{% endfor %}
 </div>
-
+{% elif status == 'update' %}
+<div>Updating</div>
 {% elif status == 'preview' %}
 
 <div class="panel panel-primary">
