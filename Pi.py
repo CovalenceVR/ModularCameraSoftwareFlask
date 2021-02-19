@@ -11,4 +11,4 @@ def delete(fileName):
     os.remove("projects/" + fileName)
 
 def update():
-    os.system("pkill python3; git pull; python3 app.py")
+    os.system("git pull; pkill python3; python3 app.py")
