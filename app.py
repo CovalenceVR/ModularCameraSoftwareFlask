@@ -7,7 +7,7 @@ from multiprocessing import Process
 
 #import camera driver
 if os.environ.get('CAMERA'):
-    Camera = immport_module('camera_' + os.environ['CAMERA']).Camera
+    Camera = import_module('camera_' + os.environ['CAMERA']).Camera
 else:
     from camera_pi import Camera
 
@@ -25,22 +25,22 @@ def index():
 def cam(status=None):
     return flask.render_template('cam.html', status=status, ip=flask.request.host)
 
-@app.route('/record/<fileName>')
+@app.route('/record/<fileName>', methods=['GET','POST'])
 def start(fileName=None):
     Pi.record(fileName)
     return flask.render_template('cam.html', ip=flask.request.host, status='record')
 
-@app.route('/delete/<fileName>')
+@app.route('/delete/<fileName>', methods=['GET','POST'])
 def remove(fileName=None):
     Pi.delete(fileName)
     return flask.render_template('cam.html', ip=flask.request.host, status='list')
 
-@app.route('/stop')
+@app.route('/stop', methods=['GET','POST'])
 def stop():
     Pi.stop()
     return flask.render_template('cam.html', ip=flask.request.host, status='stop')
 
-@app.route('/update')
+@app.route('/update', methods=['GET','POST'])
 def update():
     Pi.update()
     return redirect("http://" + flask.request.host + "/cam")
