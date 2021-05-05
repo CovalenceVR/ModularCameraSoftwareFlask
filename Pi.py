@@ -1,9 +1,8 @@
 import picamera
 import os
-import time
 
 def record(fileName):
-    os.system("raspivid -o projects/" + fileName + "__" + time.time() + ".h264 -t 99999999999")
+    os.system("raspivid -o projects/" + fileName + ".h264 -t 99999999999")
                 
 def stop():
     os.system("pkill raspivid")

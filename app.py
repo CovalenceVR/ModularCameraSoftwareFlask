@@ -4,7 +4,7 @@ import flask
 from markupsafe import escape
 import Pi
 from multiprocessing import Process
-
+import time
 #import camera driver
 if os.environ.get('CAMERA'):
     Camera = import_module('camera_' + os.environ['CAMERA']).Camera
@@ -27,7 +27,7 @@ def cam(status=None):
 
 @app.route('/record/<fileName>', methods=['GET','POST'])
 def start(fileName=None):
-    Pi.record(fileName)
+    Pi.record(fileName + "__" + str(time.time_ns()))
     return flask.render_template('cam.html', ip=flask.request.host, status='record')
 
 @app.route('/delete/<fileName>', methods=['GET','POST'])
