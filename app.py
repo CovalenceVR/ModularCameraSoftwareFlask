@@ -40,6 +40,11 @@ def remove(fileName=None):
     Pi.delete(fileName)
     return flask.render_template('cam.html', ip=flask.request.host, status='list')
 
+@app.route('/deleteall', methods=['GET','POST'])
+def remove():
+    Pi.deleteall()
+    return flask.render_template('cam.html', ip=flask.request.host, status='list')
+
 @app.route('/stop', methods=['GET','POST'])
 def stop():
     Pi.stop()
@@ -52,6 +57,11 @@ def update():
 
 @app.route('/download/<path:filename>', methods=['GET', 'POST'])
 def download(filename):
+    return flask.send_from_directory(DOWNLOAD_FOLDER, filename=filename, as_attachment=True)
+
+@app.route('/downloadall/<path:filename>', methods=['GET', 'POST'])
+def download(filename):
+    Pi.downloadall(filename)
     return flask.send_from_directory(DOWNLOAD_FOLDER, filename=filename, as_attachment=True)
 
 def gen(camera):
