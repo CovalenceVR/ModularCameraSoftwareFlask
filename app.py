@@ -30,6 +30,11 @@ def start(fileName=None):
     Pi.record(fileName + "__" + str(time.time_ns()))
     return flask.render_template('cam.html', ip=flask.request.host, status='record')
 
+@app.route('/still/<fileName>', methods=['GET','POST'])
+def still(fileName=None):
+    Pi.still(fileName + "__" + str(time.time_ns()))
+    return flask.render_template('cam.html', ip=flask.request.host, status='still')
+
 @app.route('/delete/<fileName>', methods=['GET','POST'])
 def remove(fileName=None):
     Pi.delete(fileName)

@@ -7,89 +7,104 @@
 		<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
 	</head>
-<body>
-<title>Camera app</title>
+	<body>
+		<title>Camera app</title>
 
-<div class="dropdown">
-	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		Actions
-		<span class="caret"></span> 
-	</button>
-	<ul class="dropdown-menu"> 
-		<li>
-			<a href="{{ 'http://' + ip + '/cam' }}">Home</a>
-		<li>
-			<a href="{{ 'http://' + ip + '/record/video' }}">Record</a>
-		</li>
-		<li>
-			<a href="{{ 'http://' + ip + '/stop' }}">Stop recording</a>
-		</li>
-		<li>
-			<a href="{{ 'http://' + ip + '/projects' }}">Projects</a>
-		</li>
-		<li>
-			<a href="{{ 'http://' + ip + '/cam/preview' }}">Preview</a>
-		</li>
-		<li>
-			<a href="{{ 'http://' + ip + '/update' }}">Update</a>
-		</li>
-	</ul>
-</div>
-
-{% if status == none %}
-
-<div class="panel panel-success">
-	<div class="panel-heading">
-		<h3 class="panel-title">Online</h3>
-	</div>
-	<div class="panel-body">
-		Camera node is connected and working correctly! You can navigate this nodes recordings, star/stop single node recording, or preview the cameras placement by using the drop down menu above.
-	</div>
-</div>
-{% elif status == 'record' %}
-
-<div class="panel panel-danger">
-	<div class="panel-heading">
-		<h3 class="panel-title">Recording</h3>
-	</div>
-	<div class="panel-body">
-		If this message comes up chances are the recording did not start correctly. This is probably due to trying to record while preview still had ahold of the camera, or the camera has a hardware issue prevent it from contacting the camera module on the micro server. Try waiting a few seconds and retry the record button, if they doesn't work please restart the camera having the issue.
-	</div>
-</div>
-
-{% elif status == 'list' %}
-
-<div class="list-group">
-	{% for file in files %}
-	<li class="list-group-item">
-		{{ file }}
-		<div class="btn-group" role="group" aria-label="">
-			<button type="button" class="btn btn-default">
-				<a href="{{ 'http://' + ip + '/download/' + file }}">Download</a>
+		<div class="dropdown">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Actions
+				<span class="caret"></span>
 			</button>
-			<button type="button" class="btn btn-danger">
-				<a href="{{ 'http://' + ip + '/delete/' + file }}">Delete</a>
-			</button>
+			<ul class="dropdown-menu">
+				<li>
+					<a href="{{ 'http://' + ip + '/cam' }}">Home</a>
+				<li>
+					<a href="{{ 'http://' + ip + '/record/video' }}">Record</a>
+				</li>
+				<li>
+					<a href="{{ 'http://' + ip + '/still/still' }}">Take picure</a>
+				</li>
+				<li>
+					<a href="{{ 'http://' + ip + '/stop' }}">Stop recording</a>
+				</li>
+				<li>
+					<a href="{{ 'http://' + ip + '/projects' }}">Projects</a>
+				</li>
+				<li>
+					<a href="{{ 'http://' + ip + '/cam/preview' }}">Preview</a>
+				</li>
+				<li>
+					<a href="{{ 'http://' + ip + '/update' }}">Update</a>
+				</li>
+			</ul>
 		</div>
-	</li>
-	{% endfor %}
-</div>
-{% elif status == 'update' %}
-<div>Updating</div>
-{% elif status == 'preview' %}
 
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<h3 class="panel-title">Preview</h3>
-	</div>
-	<div class="panel-body">
-		The camera can take a little while to come up and when you leave preview give it a second before trying to record so that the camera can be released from preview mode and back into record mode.
-	</div>
-</div>
-<img id="preview" src="{{ url_for('video_feed') }}">
+		{% if status == none %}
 
-{% endif %}
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Online</h3>
+			</div>
+			<div class="panel-body">
+				Camera node is connected and working correctly! You can navigate this nodes recordings, star/stop single node recording, or preview the cameras placement by using the drop down menu above.
+			</div>
+		</div>
 
-<!-- <iframe id="bat" src="{{'http://' + request.host.split(':')[0] + ':8421' }}" title="bat"></iframe> -->
-</body>
+		{% elif status == 'record' %}
+
+		<div class="panel panel-danger">
+			<div class="panel-heading">
+				<h3 class="panel-title">Recording</h3>
+			</div>
+			<div class="panel-body">
+				If this message comes up chances are the recording did not start correctly. This is probably due to trying to record while preview still had ahold of the camera, or the camera has a hardware issue prevent it from contacting the camera module on the micro server. Try waiting a few seconds and retry the record button, if they doesn't work please restart the camera having the issue.
+			</div>
+		</div>
+
+		{% elif status == 'still' %}
+
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Picture taken</h3>
+			</div>
+			<div class="panel-body">
+				The picture has been taken and saved! It will show up in the projects tab with the rest of the files video files.
+			</div>
+		</div>
+
+		{% elif status == 'list' %}
+
+		<div class="list-group">
+			{% for file in files %}
+			<li class="list-group-item">
+				{{ file }}
+				<div class="btn-group" role="group" aria-label="">
+					<button type="button" class="btn btn-default">
+						<a href="{{ 'http://' + ip + '/download/' + file }}">Download</a>
+					</button>
+					<button type="button" class="btn btn-danger">
+						<a href="{{ 'http://' + ip + '/delete/' + file }}">Delete</a>
+					</button>
+				</div>
+			</li>
+			{% endfor %}
+		</div>
+		{% elif status == 'update' %}
+		<div>Updating</div>
+		{% elif status == 'preview' %}
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Preview</h3>
+			</div>
+			<div class="panel-body">
+				The camera can take a little while to come up and when you leave preview give it a second before trying to record so that the camera can be released from preview mode and back into record mode.
+			</div>
+		</div>
+		<img id="preview" src="{{ url_for('video_feed') }}">
+
+		{% endif %}
+
+		<!-- <iframe id="bat" src="{{'http://' + request.host.split(':')[0] + ':8421' }}" title="bat"></iframe> -->
+	</body>
 </html>
