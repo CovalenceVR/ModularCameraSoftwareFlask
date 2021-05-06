@@ -87,25 +87,25 @@
 
 			<li li class="list-group-item">
 				<div class="btn-group" role="group" aria-label="">
-					<button href="{{ 'http://' + ip + '/deleteall'}}" type="button" class="btn btn-danger">
+					<a href="{{ 'http://' + ip + '/deleteall'}}" type="button" class="btn btn-danger">
 						Delete all
-					</button>
+					</a>
 
-					<button href="{{ 'http://' + ip + '/downloadall'}}" type="button" class="btn btn-default">
+					<a href="{{ 'http://' + ip + '/downloadall'}}" type="button" class="btn btn-default">
 						Download all
-					</button>
+					</a>
 				</div>
 			</li>
 			{% for file in files %}
 			<li class="list-group-item">
 				{{ file }}
 				<div class="btn-group" role="group" aria-label="">
-					<button href="{{ 'http://' + ip + '/download/' + file }}" type="button" class="btn btn-default">
+					<a href="{{ 'http://' + ip + '/download/' + file }}" type="button" class="btn btn-default">
 						Download
-					</button>
-					<button href="{{ 'http://' + ip + '/delete/' + file }}" type="button" class="btn btn-danger">
+					</a>
+					<a href="{{ 'http://' + ip + '/delete/' + file }}" type="button" class="btn btn-danger">
 						Delete
-					</button>
+					</a>
 				</div>
 			</li>
 			{% endfor %}
