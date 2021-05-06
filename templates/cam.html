@@ -84,6 +84,18 @@
 		</div>
 
 		<div class="list-group">
+
+			<li li class="list-group-item">
+				<div class="btn-group" role="group" aria-label="">
+					<button type="button" class="btn btn-danger">
+						<a href="{{ 'http://' + ip + '/deleteall'}}">Delete all</a>
+					</button>
+
+					<button type="button" class="btn btn-danger">
+						<a href="{{ 'http://' + ip + '/downloadall'}}">Download all</a>
+					</button>
+				</div>
+			</li>
 			{% for file in files %}
 			<li class="list-group-item">
 				{{ file }}
