@@ -74,6 +74,15 @@
 
 		{% elif status == 'list' %}
 
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Projects</h3>
+			</div>
+			<div class="panel-body">
+				Here you will find all of the videos and images you have taken. Every video of image is formatted like [filename]__[time stamp] for camera sync reasons
+			</div>
+		</div>
+
 		<div class="list-group">
 			{% for file in files %}
 			<li class="list-group-item">
