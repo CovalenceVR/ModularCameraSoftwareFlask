@@ -1,8 +1,17 @@
-import picamera
 import os
+import json
 
 def record(fileName):
-    os.system("raspivid -o projects/" + fileName + ".h264 -t 99999999999")
+    with open('Config.txt') as json_file:
+        data = json.load(json_file)
+        for item in data['config']:
+            os.system("raspivid -o projects/" + fileName + ".h264 -t 0 --framerate 24 " + "--exposure " + item['exposure'])
+
+def recordPrint(fileName):
+    with open('Config.txt') as json_file:
+        data = json.load(json_file)
+        for item in data['config']:
+            print("raspivid -o projects/" + fileName + ".h264 -t 0 --framerate 24 " + "--exposure " + item['exposure'])
                 
 def stop():
     os.system("pkill raspivid")

@@ -1,0 +1,1 @@
+{"config": [{"exposure": "sports", "awb": "incandescent", "intra": "1", "name": "Cam1"}]}
