@@ -36,7 +36,10 @@ def downloadall(fileName):
     os.system("mv " + fileName + ".zip projects")
 
 def still(fileName):
-    os.system("raspistill -n -o projects/" + fileName + ".png")
+    with open('Config.json') as json_file:
+        data = json.load(json_file)
+        for item in data['config']:
+            os.system("raspistill -n -o projects/" + item['name'] + "_" + fileName + ".png")
 
 def update():
     os.system("git pull; pkill python3; python3 app.py")
