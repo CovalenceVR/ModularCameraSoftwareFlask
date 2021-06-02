@@ -14,12 +14,12 @@ def make():
         json.dump(data, outfile)
         
 def updateCamName(camname):
-    a_file = open("config.json", "r")
+    a_file = open("Config.json", "r")
     json_object = json.load(a_file)
     a_file.close()
     
     json_object["name"] = camname
-    a_file = open("config.json", "w")
+    a_file = open("Config.json", "w")
     json.dump(json_object, a_file)
     a_file.close()
     
