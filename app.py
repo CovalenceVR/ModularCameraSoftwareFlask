@@ -5,6 +5,8 @@ from markupsafe import escape
 import Pi
 from multiprocessing import Process
 import time
+import UpdateJson
+
 #import camera driver
 if os.environ.get('CAMERA'):
     Camera = import_module('camera_' + os.environ['CAMERA']).Camera
@@ -27,12 +29,15 @@ def cam(status=None):
 
 @app.route('/record/<fileName>', methods=['GET','POST'])
 def start(fileName=None):
+    Pi.ledOn()
     Pi.record(fileName + "__" + str(time.time_ns()))
     return flask.render_template('cam.html', ip=flask.request.host, status='record')
 
 @app.route('/still/<fileName>', methods=['GET','POST'])
 def still(fileName=None):
+    Pi.ledOn()
     Pi.still(fileName + "__" + str(time.time_ns()))
+    Pi.ledOff()
     return flask.render_template('cam.html', ip=flask.request.host, status='still')
 
 @app.route('/delete/<fileName>', methods=['GET','POST'])
@@ -47,6 +52,7 @@ def removeall():
 
 @app.route('/stop', methods=['GET','POST'])
 def stop():
+    Pi.ledOff()
     Pi.stop()
     return flask.render_template('cam.html', ip=flask.request.host, status='stop')
 
@@ -64,6 +70,11 @@ def downloadall(filename):
     Pi.downloadall(filename)
     return flask.send_from_directory(DOWNLOAD_FOLDER, filename=filename, as_attachment=True)
 
+@app.route('/update/cam/<camName>', methods=['GET','POST'])
+def updateCamName(camName=None):
+    UpdateJson.updateCamName(camName)
+    return flask.render_template('cam.html', ip=flask.request.host, status='update')
+    
 def gen(camera):
     """video streaming generator function"""
     while True:

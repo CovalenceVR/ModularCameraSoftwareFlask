@@ -10,11 +10,21 @@ def make():
         'name': 'Cam1'
     })
 
-    with open('Config.txt', 'w') as outfile:
+    with open('Config.json', 'w') as outfile:
         json.dump(data, outfile)
-
+        
+def updateCamName(camname):
+    a_file = open("config.json", "r")
+    json_object = json.load(a_file)
+    a_file.close()
+    
+    json_object["name"] = camname
+    a_file = open("config.json", "w")
+    json.dump(json_object, a_file)
+    a_file.close()
+    
 def read():
-    with open('Config.txt') as json_file:
+    with open('Config.json') as json_file:
         data = json.load(json_file)
         for item in data['config']:
             print(item['exposure'])

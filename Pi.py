@@ -2,17 +2,25 @@ import os
 import json
 
 def record(fileName):
-    with open('Config.txt') as json_file:
+    with open('Config.json') as json_file:
         data = json.load(json_file)
         for item in data['config']:
-            os.system("raspivid -o projects/" + fileName + ".h264 -t 0 --framerate 24 " + "--exposure " + item['exposure'])
+            os.system("raspivid -o projects/" + item['name'] + "_" + fileName + ".h264 -n -t 0 --framerate 24" + " --exposure " + item['exposure'] + " --awb " + item['awb'] + " --intra " + item['intra'])
 
 def recordPrint(fileName):
-    with open('Config.txt') as json_file:
+    with open('Config.json') as json_file:
         data = json.load(json_file)
         for item in data['config']:
-            print("raspivid -o projects/" + fileName + ".h264 -t 0 --framerate 24 " + "--exposure " + item['exposure'])
-                
+            print("raspivid -o projects/" + item['name'] + "_" + fileName + ".h264 -n -t 0 --framerate 24" + " --exposure " + item['exposure'] + " --awb " + item['awb'] + " --intra " + item['intra'])
+
+def ledOff():
+    with open("/sys/class/leds/led0/brightness","w") as f:
+        f.write('0\n')
+     
+def ledOn():
+    with open("/sys/class/leds/led0/brightness","w") as f:
+        f.write('1\n')
+        
 def stop():
     os.system("pkill raspivid")
             
