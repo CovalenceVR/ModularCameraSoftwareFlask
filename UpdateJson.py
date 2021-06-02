@@ -23,12 +23,12 @@ def updateCamName(camname):
     json.dump(json_object, a_file)
     a_file.close()
 
-def update(type, value):
+def update(thing, value):
     a_file = open("Config.json", "r")
     json_object = json.load(a_file)
     a_file.close()
     
-    json_object[type] = value
+    json_object[str(thing)] = value
     a_file = open("Config.json", "w")
     json.dump(json_object, a_file)
     a_file.close()
