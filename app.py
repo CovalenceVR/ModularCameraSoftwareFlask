@@ -79,12 +79,18 @@ def download(filename):
 def downloadall(filename):
     Pi.downloadall(filename)
     return flask.send_from_directory(DOWNLOAD_FOLDER, filename=filename, as_attachment=True)
-
-@app.route('/updateCamName/<path:camName>', methods=['GET','POST'])
-def updateCamName(camName):
-    UpdateJson.updateCamName(camName)
-    return flask.render_template('cam.html', ip=flask.request.host, status='update')
     
+"""
+Section for updating Json file
+"""
+@app.route('/updatejson/<path:type>/<path:value>', methods=['GET','POST'])
+def updatejson(camName):
+    UpdateJson.update(type,value)
+    return flask.render_template('cam.html', ip=flask.request.host, status='update')
+"""
+end seciton on updating Json file
+"""
+
 def gen(camera):
     """video streaming generator function"""
     while True:
