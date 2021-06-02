@@ -70,8 +70,8 @@ def downloadall(filename):
     Pi.downloadall(filename)
     return flask.send_from_directory(DOWNLOAD_FOLDER, filename=filename, as_attachment=True)
 
-@app.route('/update/cam/<camName>', methods=['GET','POST'])
-def updateCamName(camName=None):
+@app.route('/updateCamName/<path:camName>', methods=['GET','POST'])
+def updateCamName(camName):
     UpdateJson.updateCamName(camName)
     return flask.render_template('cam.html', ip=flask.request.host, status='update')
     
