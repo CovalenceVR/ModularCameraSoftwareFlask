@@ -26,6 +26,16 @@ def index():
 @app.route('/cam/<status>', methods=['GET','POST'])
 def cam(status=None):
     return flask.render_template('cam.html', status=status, ip=flask.request.host)
+    
+@app.route('/led/off', methods=['GET','POST'])
+def ledOff(status=None):
+    Pi.ledOff()
+    return flask.render_template('cam.html', status=status, ip=flask.request.host)
+    
+@app.route('/led/on', methods=['GET','POST'])
+def ledOn(status=None):
+    Pi.ledOn()
+    return flask.render_template('cam.html', status=status, ip=flask.request.host)
 
 @app.route('/record/<fileName>', methods=['GET','POST'])
 def start(fileName=None):
