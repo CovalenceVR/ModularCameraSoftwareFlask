@@ -83,9 +83,9 @@ def downloadall(filename):
 """
 Section for updating Json file
 """
-@app.route('/updatejson/<path:thing>/<path:value>', methods=['GET','POST'])
-def updatejson(camName):
-    UpdateJson.update(thing, value)
+@app.route('/updatejson/<path:item>/<path:value>', methods=['GET','POST'])
+def updatejson(item,value):
+    UpdateJson.update(str(item), str(value))
     return flask.render_template('cam.html', ip=flask.request.host, status='update')
 """
 end seciton on updating Json file

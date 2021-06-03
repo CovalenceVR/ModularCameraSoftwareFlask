@@ -4,15 +4,12 @@ def make():
     data = {}
     data['config'] = []
     data['config'].append({
-        'exposure': 'sports',
-        'awb': 'incandescent',
-        'intra': '1',
-        'name': 'Cam1'
+        'name': 'Cam0'
     })
 
     with open('Config.json', 'w') as outfile:
         json.dump(data, outfile)
-        
+
 def updateCamName(camname):
     a_file = open("Config.json", "r")
     json_object = json.load(a_file)
@@ -23,12 +20,13 @@ def updateCamName(camname):
     json.dump(json_object, a_file)
     a_file.close()
 
-def update(thing, value):
+def update(item,value):
     a_file = open("Config.json", "r")
     json_object = json.load(a_file)
     a_file.close()
     
-    json_object[str(thing)] = value
+    json_object[item] = value
+    
     a_file = open("Config.json", "w")
     json.dump(json_object, a_file)
     a_file.close()
@@ -36,5 +34,4 @@ def update(thing, value):
 def read():
     with open('Config.json') as json_file:
         data = json.load(json_file)
-        for item in data['config']:
-            print(item['exposure'])
+        print(data['exposure'])

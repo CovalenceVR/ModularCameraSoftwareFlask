@@ -1,1 +1,1 @@
-{"config": [{"exposure": "sports", "awb": "incandescent", "intra": "1", "name": "Cam0"}]}
+{"name": "newcam", "exposure": "sports", "intra": "1", "awb": "auto"}

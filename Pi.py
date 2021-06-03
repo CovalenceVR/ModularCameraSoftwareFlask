@@ -3,15 +3,13 @@ import json
 
 def record(fileName):
     with open('Config.json') as json_file:
-        data = json.load(json_file)
-        for item in data['config']:
-            os.system("raspivid -o projects/" + item['name'] + "_" + fileName + ".h264 -n -t 0 --framerate 24" + " --exposure " + item['exposure'] + " --awb " + item['awb'] + " --intra " + item['intra'])
+        item = json.load(json_file)
+        os.system("raspivid -o projects/" + item['name'] + "_" + fileName + ".h264 -n -t 0 --framerate 24" + " --exposure " + item['exposure'] + " --awb " + item['awb'] + " --intra " + item['intra'])
 
 def recordPrint(fileName):
     with open('Config.json') as json_file:
-        data = json.load(json_file)
-        for item in data['config']:
-            print("raspivid -o projects/" + item['name'] + "_" + fileName + ".h264 -n -t 0 --framerate 24" + " --exposure " + item['exposure'] + " --awb " + item['awb'] + " --intra " + item['intra'])
+        item = json.load(json_file)
+        print("raspivid -o projects/" + item['name'] + "_" + fileName + ".h264 -n -t 0 --framerate 24" + " --exposure " + item['exposure'] + " --awb " + item['awb'] + " --intra " + item['intra'])
 
 def ledOff():
     with open("/sys/class/leds/led0/brightness","w") as f:
@@ -37,9 +35,8 @@ def downloadall(fileName):
 
 def still(fileName):
     with open('Config.json') as json_file:
-        data = json.load(json_file)
-        for item in data['config']:
-            os.system("raspistill -n -o projects/" + item['name'] + "_" + fileName + ".png")
+        item = json.load(json_file)
+        os.system("raspistill -n -o projects/" + item['name'] + "_" + fileName + ".png")
 
 def update():
     os.system("git pull; pkill python3; python3 app.py")
