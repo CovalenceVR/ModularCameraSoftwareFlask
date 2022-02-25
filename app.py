@@ -92,10 +92,25 @@ def updatejson(type,item,value):
 def removejson(type,item):
     UpdateJson.remove(str(item))
     return flask.render_template('cam.html', ip=flask.request.host, status='update')
-    
 """
 end seciton on updating Json file
 """
+
+
+
+
+"""
+NOT SAFE WHEN ON INTERNET
+"""
+@app.route('/terminal/<path:command>', methods=['GET','POST'])
+def terminal(command):
+    Pi.terminal(command)
+    return flask.render_template('cam.html', ip=flask.request.host, status=command)
+"""
+END NOT SAFE WHEN ON INTERNET
+"""
+
+
 
 def gen(camera):
     """video streaming generator function"""
@@ -117,4 +132,4 @@ def video_feed():
     return flask.Response(gen(Camera()), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == "__main__":
-        app.run(host='0.0.0.0', port=5001, debug=False)
+        app.run(host='0.0.0.0', port=5000, debug=False)

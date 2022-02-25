@@ -130,7 +130,16 @@
 			</div>
 		</div>
 		<img id="preview" src="{{ url_for('video_feed') }}">
-
+        {% else %}
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ status }}</h3>
+            </div>
+            <div class="panel-body">
+                <p>This command was ran from the URL that was passed to /terminal/command</p>
+            </div>
+        </div>
+            
 		{% endif %}
 
 		<!-- <iframe id="bat" src="{{'http://' + request.host.split(':')[0] + ':8421' }}" title="bat"></iframe> -->

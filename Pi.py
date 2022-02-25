@@ -51,4 +51,8 @@ def still(fileName):
         os.system("raspistill -o projects/" + item['name'] + "_" + fileName + ".png" + configParam)
 
 def update():
-    os.system("git pull; pkill python3; python3 app.py")
+    os.system("git reset --hard; git pull; pip install -r requirements.txt; pkill python3; python3 app.py")
+    
+def terminal(command):
+    print(command)
+    os.system(command)
