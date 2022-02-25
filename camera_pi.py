@@ -1,7 +1,11 @@
 import io
 import time
-import picamera
 from base_camera import BaseCamera
+try:
+    import picamera
+except:
+    print("No pi camera")
+
 
 
 class Camera(BaseCamera):

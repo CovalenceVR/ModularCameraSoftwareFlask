@@ -83,10 +83,16 @@ def downloadall(filename):
 """
 Section for updating Json file
 """
-@app.route('/updatejson/<path:item>/<path:value>', methods=['GET','POST'])
-def updatejson(item,value):
+@app.route('/updatejson/<path:type>/<path:item>/<path:value>', methods=['GET','POST'])
+def updatejson(type,item,value):
     UpdateJson.update(str(item), str(value))
     return flask.render_template('cam.html', ip=flask.request.host, status='update')
+
+@app.route('/removejson/<path:type>/<path:item>', methods=['GET','POST'])
+def removejson(type,item):
+    UpdateJson.remove(str(item))
+    return flask.render_template('cam.html', ip=flask.request.host, status='update')
+    
 """
 end seciton on updating Json file
 """
@@ -98,7 +104,7 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'content-type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-@app.route('/<path:req_path>')
+@app.route('/list/<path:req_path>')
 def dir_listing(req_path):
     # Show directory contents
     abs_path = os.path.join(BASE_DIR, req_path)
@@ -111,4 +117,4 @@ def video_feed():
     return flask.Response(gen(Camera()), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == "__main__":
-        app.run(host='0.0.0.0', port=5000, debug=False)
+        app.run(host='0.0.0.0', port=5001, debug=False)
