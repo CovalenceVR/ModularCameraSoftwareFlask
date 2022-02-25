@@ -85,12 +85,12 @@ Section for updating Json file
 """
 @app.route('/updatejson/<path:type>/<path:item>/<path:value>', methods=['GET','POST'])
 def updatejson(type,item,value):
-    UpdateJson.update(str(item), str(value))
+    UpdateJson.update(str(type),str(item), str(value))
     return flask.render_template('cam.html', ip=flask.request.host, status='update')
 
 @app.route('/removejson/<path:type>/<path:item>', methods=['GET','POST'])
 def removejson(type,item):
-    UpdateJson.remove(str(item))
+    UpdateJson.remove(str(type),str(item))
     return flask.render_template('cam.html', ip=flask.request.host, status='update')
 """
 end seciton on updating Json file
