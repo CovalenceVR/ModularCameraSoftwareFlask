@@ -1,1 +1,1 @@
-{"name": "newcam", "exposure": "sports", "nopreview": "", "timeout": "0"}
+{"name": "newcam", "exposure": "night", "nopreview": "", "timeout": "100000", "contrast": "0" , "brightness": "50" , "awb": "tungsten"}

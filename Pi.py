@@ -42,6 +42,9 @@ def downloadall(fileName):
     os.system("mv " + fileName + ".zip projects")
 
 def still(fileName):
+"""
+raspistill -o projects/name_filename.png --exposure sports --nopreview --timeout 10
+"""
     with open('stillConfig.json') as json_file:
         item = json.load(json_file)
         configParam = "";
@@ -49,7 +52,16 @@ def still(fileName):
             if param != "name":
                 configParam += " --" + param + " " + item[param]
         os.system("raspistill -o projects/" + item['name'] + "_" + fileName + ".png" + configParam)
-
+        
+def audio(fileName):
+    with open('audioConfig.json') as json_file:
+        item = json.load(json_file)
+        configParam = "";
+        for param in item:
+            if param != "name":
+                configParam += " -" + param + " " + item[param]
+        os.system("arecord -v " + item['name'] + "_" + fileName + ".wav" + configParam)
+        
 def update():
     os.system("git reset --hard; git pull; pip install -r requirements.txt; pkill python3; python3 app.py")
     
